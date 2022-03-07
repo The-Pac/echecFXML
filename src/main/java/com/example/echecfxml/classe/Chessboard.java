@@ -51,7 +51,7 @@ public class Chessboard {
             for (int j = 0; j < chessboard.length; j++) {
                 chessboard[i][j] = new Case();
                 e++;
-                Rectangle rectangle = new Rectangle(40, 40);
+                Rectangle rectangle = new Rectangle(60, 40);
                 rectangle.setOnDragOver(event -> {
                     rectangle.setFill(Color.GREEN);
                     event.acceptTransferModes(TransferMode.MOVE);
@@ -132,7 +132,6 @@ public class Chessboard {
                             if (check_move(x, y, pawn, vBox)) {
                                 move(x, y, pawn);
                                 //log write
-                                System.out.println(nbr_tour + " " + player + " " + x + " " + y + " " + pawn.getValue());
                                 log.write_log(nbr_tour, player, x, y, pawn.getValue());
 
                                 //clear bottom

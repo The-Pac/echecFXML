@@ -1,0 +1,13 @@
+.background {
+    -fx-background-color: black;
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+}
+
+.pane {
+    -fx-border-color: white;
+    -fx-border-width: 5;
+}

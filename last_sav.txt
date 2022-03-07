@@ -1,0 +1,4 @@
+{"tour":1,"player_name":"P1","player_pawn_nbr":16,"player_pawn":"S","x":3,"y":1}
+{"tour":2,"player_name":"P2","player_pawn_nbr":16,"player_pawn":"S","x":4,"y":1}
+{"tour":3,"player_name":"P1","player_pawn_nbr":16,"player_pawn":"S","x":3,"y":2}
+{"tour":4,"player_name":"P2","player_pawn_nbr":16,"player_pawn":"S","x":4,"y":2}

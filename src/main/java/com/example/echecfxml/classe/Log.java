@@ -50,13 +50,27 @@ public class Log {
     }
 
     /**
+     * clear the file
+     */
+    public void clear_log() {
+        try {
+            fileWriter = new FileWriter("last_sav.txt");
+            fileWriter.write("");
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * return if a log file exist or not
      */
     public boolean is_game_log() {
         try {
             fileReader = new FileReader("last_sav.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            while (bufferedReader.readLine() != null) {
+            if (bufferedReader.readLine() != null) {
                 return true;
             }
             fileReader.close();
@@ -110,8 +124,8 @@ public class Log {
                         break;
                 }
                 jsonReader.close();
-                break;
             }
+            Main_Controller.setNbr_tour(Main_Controller.getNbr_tour() + 1);
         } catch (IOException e) {
             e.printStackTrace();
         }

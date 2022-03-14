@@ -11,6 +11,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -19,7 +20,7 @@ import javafx.scene.shape.Rectangle;
 
 public class Chessboard {
     private final int h_tab = 8, w_tab = 8;
-    private final GridPane tableau_jeu_gridpane = new GridPane();
+    private final GridPane tableau_jeu_gridpane = new GridPane(), dead_pawn_P1_Gridpane = new GridPane(), dead_pawn_P2_Gridpane = new GridPane();
     private final Rectangle[][] rectangles_board = new Rectangle[h_tab][w_tab], rectangles_players = new Rectangle[h_tab][w_tab];
     private Player player1, player2;
     private Case[][] chessboard = new Case[h_tab][w_tab];
@@ -29,7 +30,11 @@ public class Chessboard {
         log = new Log();
     }
 
-    public void create_chessboard(Pane echecTabPane, String p1_name, String p2_name) {
+    public void create_dead_place() {
+
+    }
+
+    public void create_chessboard(Pane echecTabPane, String p1_name, String p2_name, HBox dead_pawn_P1_HBox, HBox dead_pawn_P2_HBox) {
         player1 = new Player();
         player2 = new Player();
 
@@ -38,6 +43,29 @@ public class Chessboard {
 
         player1.create_pawns(1);
         player2.create_pawns(2);
+
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 8; j++) {
+                Rectangle rectangle_P1 = new Rectangle(40, 40), rectangle_P2 = new Rectangle(40, 40);
+                rectangle_P1.setFill(Color.RED);
+                rectangle_P2.setFill(Color.RED);
+
+                dead_pawn_P1_Gridpane.add(rectangle_P1, i, j);
+                dead_pawn_P2_Gridpane.add(rectangle_P2, i, j);
+            }
+        }
+        dead_pawn_P1_Gridpane.setAlignment(Pos.CENTER);
+        dead_pawn_P1_Gridpane.setGridLinesVisible(true);
+        dead_pawn_P1_Gridpane.setHgap(5);
+        dead_pawn_P1_Gridpane.setVgap(5);
+
+        dead_pawn_P2_Gridpane.setAlignment(Pos.CENTER);
+        dead_pawn_P2_Gridpane.setGridLinesVisible(true);
+        dead_pawn_P2_Gridpane.setHgap(5);
+        dead_pawn_P2_Gridpane.setVgap(5);
+
+        dead_pawn_P1_HBox.getChildren().add(dead_pawn_P1_Gridpane);
+        dead_pawn_P2_HBox.getChildren().add(dead_pawn_P2_Gridpane);
 
         int h_tab = 8;
         int w_tab = 8;
@@ -52,11 +80,13 @@ public class Chessboard {
                 chessboard[i][j] = new Case();
                 e++;
                 Rectangle rectangle = new Rectangle(40, 40);
+
                 rectangle.setOnDragOver(event -> {
                     rectangle.setFill(Color.GREEN);
                     event.acceptTransferModes(TransferMode.MOVE);
                     event.consume();
                 });
+
                 if (e % 2 == 0) {
                     rectangle.setOnDragExited(event -> {
                         rectangle.setFill(Color.WHITE);
@@ -126,13 +156,17 @@ public class Chessboard {
 
                 for (Rectangle[] rectangle_tab : rectangles_board) {
                     for (Rectangle rectangle : rectangle_tab) {
+
+
                         rectangle.setOnDragDropped(event -> {
                             //get coord of the rect
-                            int x = GridPane.getColumnIndex(event.getPickResult().getIntersectedNode()), y = GridPane.getRowIndex(event.getPickResult().getIntersectedNode());
+                            int x = GridPane.getColumnIndex(event.getPickResult().getIntersectedNode()),
+                                    y = GridPane.getRowIndex(event.getPickResult().getIntersectedNode());
                             if (check_move(x, y, pawn, vBox)) {
+                                check_eat(x, y, pawn);
                                 move(x, y, pawn);
                                 //log write
-                                System.out.println(nbr_tour + " " + player + " " + x + " " + y + " " + pawn.getValue());
+                                //System.out.println(nbr_tour + " " + player + " " + x + " " + y + " " + pawn.getValue());
                                 log.write_log(nbr_tour, player, x, y, pawn.getValue());
 
                                 //clear bottom
@@ -152,6 +186,10 @@ public class Chessboard {
                 event.consume();
             });
         }
+    }
+
+    public void check_eat(int x, int y, Pawn pawn) {
+
     }
 
     public void move(int x, int y, Pawn pawn) {
@@ -178,7 +216,7 @@ public class Chessboard {
 
     private boolean check_move(int x, int y, Pawn pawn_player, VBox vBox) {
         if (!chessboard[x][y].isIs_occupied()) {
-            if (pawn_player.getLegal_move(pawn_player) != null) {
+            if (pawn_player.getLegal_move() != null) {
 
                 //check legal move
                 boolean valid_move = false;

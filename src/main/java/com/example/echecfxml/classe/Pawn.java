@@ -99,7 +99,8 @@ public class Pawn {
     }
 
 
-    public ArrayList<Integer[]> getLegal_move(Pawn pawn) {
+    public ArrayList<Integer[]> getLegal_move() {
+        Pawn pawn = this;
         switch (this.value) {
             case "R":
                 setLegal_move(square(pawn));
@@ -112,10 +113,12 @@ public class Pawn {
                     }
                 });
                 break;
-            case "F":
+            case "F1":
+            case "F2":
                 setLegal_move(diag(pawn));
-                break;
-            case "T":
+
+            case "T1":
+            case "T2":
                 setLegal_move(line(pawn));
                 break;
         }

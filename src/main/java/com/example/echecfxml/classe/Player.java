@@ -28,23 +28,23 @@ public class Player {
             Pawn dame = new Pawn(3, 0, "D", false, new Image("dame_p1.png", 100, 100, true, true));
             pawns.add(dame);
 
-            Pawn fou1 = new Pawn(2, 0, "F", false, new Image("fou_p1.png", 100, 100, true, true));
+            Pawn fou1 = new Pawn(2, 0, "F1", false, new Image("fou_p1.png", 100, 100, true, true));
             pawns.add(fou1);
-            Pawn fou2 = new Pawn(5, 0, "F", false, new Image("fou_p1.png", 100, 100, true, true));
+            Pawn fou2 = new Pawn(5, 0, "F2", false, new Image("fou_p1.png", 100, 100, true, true));
             pawns.add(fou2);
 
-            Pawn cavalier1 = new Pawn(1, 0, "C", false, new Image("cavalier_p1.png", 100, 100, true, true));
+            Pawn cavalier1 = new Pawn(1, 0, "C1", false, new Image("cavalier_p1.png", 100, 100, true, true));
             pawns.add(cavalier1);
-            Pawn cavalier2 = new Pawn(6, 0, "C", false, new Image("cavalier_p1.png", 100, 100, true, true));
+            Pawn cavalier2 = new Pawn(6, 0, "C2", false, new Image("cavalier_p1.png", 100, 100, true, true));
             pawns.add(cavalier2);
 
-            Pawn tour1 = new Pawn(0, 0, "T", false, new Image("tour_p1.png", 100, 100, true, true));
+            Pawn tour1 = new Pawn(0, 0, "T1", false, new Image("tour_p1.png", 100, 100, true, true));
             pawns.add(tour1);
-            Pawn tour2 = new Pawn(7, 0, "T", false, new Image("tour_p1.png", 100, 100, true, true));
+            Pawn tour2 = new Pawn(7, 0, "T2", false, new Image("tour_p1.png", 100, 100, true, true));
             pawns.add(tour2);
 
             for (int i = 0; i < 8; i++) {
-                Pawn soldat = new Pawn(i, 1, "S", false, new Image("soldat_p1.png", 100, 100, true, true));
+                Pawn soldat = new Pawn(i, 1, ("S" + i), false, new Image("soldat_p1.png", 100, 100, true, true));
                 pawns.add(soldat);
             }
         } else {
@@ -54,23 +54,23 @@ public class Player {
             Pawn dame = new Pawn(4, 7, "D", false, new Image("dame_p2.png", 100, 100, true, true));
             pawns.add(dame);
 
-            Pawn fou1 = new Pawn(2, 7, "F", false, new Image("fou_p2.png", 100, 100, true, true));
+            Pawn fou1 = new Pawn(2, 7, "F1", false, new Image("fou_p2.png", 100, 100, true, true));
             pawns.add(fou1);
-            Pawn fou2 = new Pawn(5, 7, "F", false, new Image("fou_p2.png", 100, 100, true, true));
+            Pawn fou2 = new Pawn(5, 7, "F2", false, new Image("fou_p2.png", 100, 100, true, true));
             pawns.add(fou2);
 
-            Pawn cavalier1 = new Pawn(1, 7, "C", false, new Image("cavalier_p2.png", 100, 100, true, true));
+            Pawn cavalier1 = new Pawn(1, 7, "C1", false, new Image("cavalier_p2.png", 100, 100, true, true));
             pawns.add(cavalier1);
-            Pawn cavalier2 = new Pawn(6, 7, "C", false, new Image("cavalier_p2.png", 100, 100, true, true));
+            Pawn cavalier2 = new Pawn(6, 7, "C2", false, new Image("cavalier_p2.png", 100, 100, true, true));
             pawns.add(cavalier2);
 
-            Pawn tour1 = new Pawn(0, 7, "T", false, new Image("tour_p2.png", 100, 100, true, true));
+            Pawn tour1 = new Pawn(0, 7, "T1", false, new Image("tour_p2.png", 100, 100, true, true));
             pawns.add(tour1);
-            Pawn tour2 = new Pawn(7, 7, "T", false, new Image("tour_p2.png", 100, 100, true, true));
+            Pawn tour2 = new Pawn(7, 7, "T2", false, new Image("tour_p2.png", 100, 100, true, true));
             pawns.add(tour2);
 
             for (int i = 0; i < 8; i++) {
-                Pawn soldat = new Pawn(i, 6, "S", false, new Image("soldat_p2.png", 100, 100, true, true));
+                Pawn soldat = new Pawn(i, 6, ("S" + i), false, new Image("soldat_p2.png", 100, 100, true, true));
                 pawns.add(soldat);
             }
         }

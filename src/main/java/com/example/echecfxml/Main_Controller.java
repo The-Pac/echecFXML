@@ -26,6 +26,7 @@ public class Main_Controller implements Initializable {
 
     public BorderPane main_BorderPane;
     public Pane echecTabPane;
+    public HBox dead_pawn_P2_Hbox, dead_pawn_P1_Hbox;
     public VBox p1_Vbox, tour_Vbox, p2_Vbox, bottom_Vbox;
     public Label point_P1_Label, tour_Label, point_p2_Label;
 
@@ -64,7 +65,7 @@ public class Main_Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Init
-        chessboard.create_chessboard(echecTabPane, p1_name, p2_name);
+        chessboard.create_chessboard(echecTabPane, p1_name, p2_name, dead_pawn_P1_Hbox, dead_pawn_P2_Hbox);
 
         if (log.is_game_log()) {
             bottom_Vbox.setVisible(true);
@@ -76,6 +77,7 @@ public class Main_Controller implements Initializable {
             button_N.setOnAction(event -> {
                 bottom_Vbox.setVisible(false);
                 bottom_Vbox.getChildren().clear();
+                log.clear_log();
             });
             button_Y.setOnAction(event -> {
                 log.read_log();

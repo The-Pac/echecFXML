@@ -67,6 +67,7 @@ public class Main_Controller implements Initializable {
         //Init
         chessboard.create_chessboard(echecTabPane, p1_name, p2_name, dead_pawn_P1_Hbox, dead_pawn_P2_Hbox);
 
+        //if log exist
         if (log.is_game_log()) {
             bottom_Vbox.setVisible(true);
             Label label = new Label("Game available");
@@ -94,6 +95,8 @@ public class Main_Controller implements Initializable {
             bottom_Vbox.getChildren().addAll(label, hBox);
         }
 
+        //thread that run out of the main thread
+        //give a player the ability to move with a tictoc system
         Task<Void> task = new Task<>() {
             int winner;
 
@@ -144,4 +147,15 @@ public class Main_Controller implements Initializable {
         };
         new Thread(task).start();
     }
+
+    /*
+     * Bonjour monsieur , desole de ne pas avoir bosser plus ce projet la j'ai fais deux trois truc
+     * mais j'ai pas mal de projet derriere et je vous avoue que je connais assez le javafx.
+     * Je bosse actuellement sur un systeme de voiture controlable via un site internet pour pouvoir
+     * rouler comme dans un jeu dans la vrai vie, j'ai mis en place un front complet avec un back pas encore
+     * fini tant que je n'ai pas fais l'electronique de la voiture ce qui me prend le plus de temps etant donné
+     * que je dois trouver les composants compatible entre eux et je dois ecrire un driver pour la camera
+     * non standart qui me donnera une vue de la voiture pendant qu'elle roule , enfin bref je ne donne qu'un de
+     * mes gros projet mais voila j'espere que mon travail est suffisant.
+     * */
 }

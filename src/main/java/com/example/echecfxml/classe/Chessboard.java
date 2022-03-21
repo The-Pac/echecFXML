@@ -18,6 +18,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
+import java.security.cert.PolicyNode;
+
 public class Chessboard {
     private final int h_tab = 8, w_tab = 8;
     private final GridPane tableau_jeu_gridpane = new GridPane(), dead_pawn_P1_Gridpane = new GridPane(), dead_pawn_P2_Gridpane = new GridPane();
@@ -30,20 +32,13 @@ public class Chessboard {
         log = new Log();
     }
 
-    public void create_dead_place() {
 
-    }
-
-    public void create_chessboard(Pane echecTabPane, String p1_name, String p2_name, HBox dead_pawn_P1_HBox, HBox dead_pawn_P2_HBox) {
-        player1 = new Player();
-        player2 = new Player();
-
-        player1.setName(p1_name);
-        player2.setName(p2_name);
-
-        player1.create_pawns(1);
-        player2.create_pawns(2);
-
+    /**
+    * Create a dead section for the pawn with the isout statut true
+    *
+     * @param dead_pawn_P2_HBox
+     * @param dead_pawn_P1_HBox*/
+    public void create_dead_place(HBox dead_pawn_P1_HBox, HBox dead_pawn_P2_HBox) {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 8; j++) {
                 Rectangle rectangle_P1 = new Rectangle(40, 40), rectangle_P2 = new Rectangle(40, 40);
@@ -66,6 +61,35 @@ public class Chessboard {
 
         dead_pawn_P1_HBox.getChildren().add(dead_pawn_P1_Gridpane);
         dead_pawn_P2_HBox.getChildren().add(dead_pawn_P2_Gridpane);
+    }
+
+
+    /**
+     *
+     * @param echecTabPane
+     * @param p1_name
+     * @param p2_name
+     * @param dead_pawn_P1_HBox
+     * @param dead_pawn_P2_HBox
+     *
+     *>Create 2 players
+     * set nickname
+     * create there pawns
+     * create chessboard
+     * set all the pawn per players
+     *
+     */
+    public void create_chessboard(Pane echecTabPane, String p1_name, String p2_name, HBox dead_pawn_P1_HBox, HBox dead_pawn_P2_HBox) {
+        player1 = new Player();
+        player2 = new Player();
+
+        player1.setName(p1_name);
+        player2.setName(p2_name);
+
+        player1.create_pawns(1);
+        player2.create_pawns(2);
+
+        create_dead_place(dead_pawn_P1_HBox,dead_pawn_P2_HBox);
 
         int h_tab = 8;
         int w_tab = 8;
@@ -143,7 +167,9 @@ public class Chessboard {
     }
 
     /**
-     * Print the chessboard
+     * enable the movement to a player
+     * drag and drop system
+     * check if the move is "possible"
      */
 
     public void enable_move(Player player, VBox vBox, int nbr_tour) {
@@ -156,8 +182,6 @@ public class Chessboard {
 
                 for (Rectangle[] rectangle_tab : rectangles_board) {
                     for (Rectangle rectangle : rectangle_tab) {
-
-
                         rectangle.setOnDragDropped(event -> {
                             //get coord of the rect
                             int x = GridPane.getColumnIndex(event.getPickResult().getIntersectedNode()),
@@ -188,10 +212,26 @@ public class Chessboard {
         }
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @param pawn
+     *
+     * check if there is some pawn between the actual position of the pawn and his futur position
+     */
     public void check_eat(int x, int y, Pawn pawn) {
 
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @param pawn
+     *
+     * move the pawn
+     */
     public void move(int x, int y, Pawn pawn) {
         chessboard[pawn.getX()][pawn.getY()].setPawn(null);
         chessboard[pawn.getX()][pawn.getY()].setIs_occupied(false);
@@ -208,12 +248,30 @@ public class Chessboard {
         });
     }
 
+
+    /**
+     *
+     * @param player
+     *
+     * remove the ability to move
+     */
     public void disable_move(Player player) {
         for (Pawn pawn : player.getTab_player()) {
             rectangles_players[pawn.getX()][pawn.getY()].setOnDragDetected(Event::consume);
         }
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @param pawn_player
+     * @param vBox
+     * @return
+     *
+     * check the move of the player
+     *      * check if the pawn move on another pawn
+     */
     private boolean check_move(int x, int y, Pawn pawn_player, VBox vBox) {
         if (!chessboard[x][y].isIs_occupied()) {
             if (pawn_player.getLegal_move() != null) {
@@ -244,6 +302,13 @@ public class Chessboard {
         }
     }
 
+
+    /**
+     *
+     * @return
+     *
+     * check if the game is finished when one player has 0 pawn
+     */
     public int is_game_over() {
         if (player1.getNombre_pawn() == 0) {
             return 1;
